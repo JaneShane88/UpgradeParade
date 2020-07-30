@@ -1,0 +1,67 @@
+﻿@using UpgradeParadeTT.Models
+@model Order
+
+@{
+    ViewData["Title"] = "Order product";
+}
+
+<!Doctype html>
+<html>
+<head>
+    <title>Products</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script>
+        $(function checkParams() {
+            $('button[type="submit"]').attr('disabled', 'disabled');
+            $('input[type="text"]').keyup(function () {
+                if ($('input[id="name"]').val() == "" || $('input[id="age"]').val() == "") {
+                    $('button[type="submit"]').attr('disabled', 'disabled');
+                }
+                else if ($('input[id="name"]').val() != "" && $('input[id="age"]').val() != "") {
+                    $('button[type="submit"]').removeAttr('disabled');
+                }
+            })
+
+        });
+    </script>
+</head>
+
+<body>
+    <form method="post">
+        <div>
+            <label asp-for="Product.Id"># @Model.Product.Id </label>
+            <input type="hidden" asp-for="Product.Id" />
+        </div>
+        <div>
+            <label asp-for="Product.Name">Name: @Model.Product.Name</label>
+            <input type="hidden" asp-for="Product.Name" />
+        </div>
+        <div>
+            <label asp-for="Product.Price">Price: $@Model.Product.Price</label>
+            <input type="hidden" asp-for="Product.Price" />
+        </div>
+        <br>
+        <div>
+            <label asp-for="Customer.Name">Name</label>
+            <input id="name" type="text" asp-for="Customer.Name" />
+        </div>
+        <div>
+            <label asp-for="Customer.Age">Age</label>
+            <input id="age" type="text" asp-for="Customer.Age" />
+        </div>
+        <div>
+            <label asp-for="DeliveryType">Delivery Type</label>
+            <select asp-for="DeliveryType" asp-items="Html.GetEnumSelectList<DeliveryTypes>()"> </select>
+        </div>
+        <div>
+            <label asp-for="PaymentType">Payment Type</label>
+            <select name="paymentType" asp-for="PaymentType" asp-items="Html.GetEnumSelectList<PaymentTypes>()"> </select>
+        </div>
+        
+        <div>
+            <button type="reset" class="btn btn-danger" onclick="location.href='@Url.Action("ProductList", "Product")'">Cancel</button>
+            <button type="submit" class="btn btn-success" id="submit" disabled>Submit</button>
+        </div>
+    </form>
+</body>
+</html>

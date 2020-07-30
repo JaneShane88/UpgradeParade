@@ -1,0 +1,36 @@
+﻿@model List<Product>
+
+@{
+    ViewData["Title"] = "Product Page";
+}
+
+<!Doctype html>
+<html>
+<head>
+    <title>Products</title>
+</head>
+<body>
+    <div class="form-group">
+        <table class="table table-striped">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+            @foreach (var item in @Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>$@item.Price</td>
+                    <td>
+                        <button type="submit" class="btn btn-success" onclick="location.href='@Url.Action("Buy", "Order", new { productId = item.Id })'">Buy</button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>
+
